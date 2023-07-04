@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1098790470046",
+    "project_id": "scan-27d1f",
+    "storage_bucket": "scan-27d1f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098790470046:android:d0ba401960ba57cbe5968f",
+        "android_client_info": {
+          "package_name": "com.haiba.Scan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098790470046-l0jm52i53p4604o7fr8bjgu2rtqq3ehf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.haiba.Scan",
+            "certificate_hash": "7d45f1e2d0a45f11539b0e4da9a12a65d2c3a6e6"
+          }
+        },
+        {
+          "client_id": "1098790470046-ti08s9j17qht1u46juhjbtm24p8akuc9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.haiba.Scan",
+            "certificate_hash": "0f96777708742ed1839873cb0e1022cb12b61ba0"
+          }
+        },
+        {
+          "client_id": "1098790470046-vnndhm6thgh89rpcatpcoaqcpsuvsjjo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmGyhrIsGGsuBg0DFkMxchEAciv2fcYRA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098790470046-vnndhm6thgh89rpcatpcoaqcpsuvsjjo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

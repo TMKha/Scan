@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import ScanDocumentScreen from "./src/screen/upcomming";
+import ImagePreviewScreen from "./src/screen/ImagePreviewScreen ";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Test from "./src/screen/test";
+import Home from "./src/screen/HomeScreen";
+import Crop from "./src/screen/crop";
+import { MaterialIcons,AntDesign  } from '@expo/vector-icons'; 
+// import Tabs from "./src/components/Tabs";
+import StackScreen from "./src/components/Tabs";
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <StackScreen/>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
