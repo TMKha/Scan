@@ -1,10 +1,7 @@
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {TextInput, KeyboardAvoidingView,Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { TextInput } from "react-native";
-import { TouchableOpacity } from "react-native";
 import { firebase } from "../../config";
-import { KeyboardAvoidingView } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const LoginScreen = () => {
@@ -20,29 +17,6 @@ const LoginScreen = () => {
     }
   };
 
-  // return (
-  //   <View>
-  //     <Text>LoginScreen</Text>
-  //     <View>
-  //       <TextInput
-  //         placeholder="Email"
-  //         onChangeText={(email) => setEmail(email)}
-  //         value={email}
-  //       />
-  //       <TextInput
-  //         placeholder="Password"
-  //         onChangeText={(password) => setPassword(password)}
-  //         value={password}
-  //       />
-  //       <TouchableOpacity onPress={() => handleLogin(email, password)}>
-  //         <Text>Login</Text>
-  //       </TouchableOpacity>
-  //       <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
-  //         <Text>Register</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   </View>
-  // );
   return (
     <SafeAreaView
       style={{
@@ -92,7 +66,7 @@ const LoginScreen = () => {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Ionicons name="key-outline" size={24} color="black" />
             <TextInput
-              placeholder="Password"
+              placeholder="Mật khẩu"
               autoCapitalize="none"
               secureTextEntry={true}
               onChangeText={(password) => setPassword(password)}

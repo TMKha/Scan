@@ -12,9 +12,11 @@ import LoginScreen from "../screen/LoginScreen";
 import RegisterScreen from "../screen/RegisterScreen";
 import Test from "../screen/test";
 import Crop from "../screen/crop";
+import UserScreen from "../screen/UserScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
 
 const ScanDocumentStack = () => {
   return (
@@ -24,6 +26,7 @@ const ScanDocumentStack = () => {
     </Stack.Navigator>
   );
 };
+// bottom tabs
 const Tabs = () => {
   return (
       <Tab.Navigator
@@ -62,7 +65,7 @@ const Tabs = () => {
              } /> 
           }}
         />
-        <Tab.Screen name={"Tôi"} component={Crop}
+        <Tab.Screen name={"User"} component={UserScreen}
           options={
             {tabBarShowLabel:false,
               tabBarIcon: ({focused}) => <MaterialIcons name="account-circle" size={24} color={
@@ -73,11 +76,12 @@ const Tabs = () => {
       </Tab.Navigator>
   );
 };
+// stack login
 const StackScreen = () => {
    // Set an initializing state whilst Firebase connects
    const [initializing, setInitializing] = useState(true);
    const [user, setUser] = useState();
- 
+  
   // Handle user state changes
   function onAuthStateChanged(user) {
     setUser(user);
