@@ -1,21 +1,36 @@
-import {TextInput, KeyboardAvoidingView,Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  TextInput,
+  KeyboardAvoidingView,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React, { useState } from "react";
+import {
+  FontAwesome5,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { firebase } from "../../config";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { firebase } from "../../../config";
 
-const LoginScreen = () => {
+const ForgotPasswordScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleLogin = async (email, password) => {
-    try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-    } catch (error) {
-      alert(error);
-    }
-  };
+    // forgot password
+    const forgotPassword = () => {
+        firebase.auth().sendPasswordResetEmail(email)
+        .then(() => {
+            alert("Vui lòng kiểm tra email để đổi mật khẩu")
+        }).catch((error) => {
+            alert(error);
+        })
+    };
+    
+
 
   return (
     <SafeAreaView
@@ -35,13 +50,14 @@ const LoginScreen = () => {
           }}
         >
           <Text style={{ fontSize: 20, color: "#2C3333", fontWeight: "bold" }}>
-            Đăng nhập
+            Quên mật khẩu
           </Text>
           <Text style={{ fontSize: 18, marginTop: 8, fontWeight: "600" }}>
-            Đăng nhập vào tài khoản của bạn.
+            Nhập email để lấy lại mật khẩu
           </Text>
         </View>
         <View style={{ marginTop: 50 }}>
+       
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <MaterialCommunityIcons
               name="email-outline"
@@ -59,30 +75,13 @@ const LoginScreen = () => {
                 borderBottomColor: "gray",
                 marginLeft: 10,
                 width: 300,
-                marginVertical: 10,
-              }}
-            />
-          </View>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Ionicons name="key-outline" size={24} color="black" />
-            <TextInput
-              placeholder="Mật khẩu"
-              autoCapitalize="none"
-              secureTextEntry={true}
-              onChangeText={(password) => setPassword(password)}
-              value={password}
-              style={{
-                fontSize: 18,
-                borderBottomWidth: 1,
-                borderBottomColor: "gray",
-                marginLeft: 10,
-                width: 300,
                 marginVertical: 20,
               }}
             />
           </View>
+      
           <Pressable
-            onPress={() => handleLogin(email, password)}
+            onPress={() => forgotPassword(email)}
             style={{
               width: 200,
               backgroundColor: "#318CE7",
@@ -101,11 +100,11 @@ const LoginScreen = () => {
                 fontWeight: "600",
               }}
             >
-              Đăng nhập
+              Gửi yêu cầu
             </Text>
           </Pressable>
           <Pressable
-            onPress={() => navigation.navigate("RegisterScreen")}
+            onPress={() => navigation.navigate("LoginScreen")}
             style={{
               marginTop: 20,
             }}
@@ -115,10 +114,10 @@ const LoginScreen = () => {
                 fontSize: 17,
                 textAlign: "center",
                 fontWeight: "600",
-                color:"gray"
+                color: "gray",
               }}
             >
-              Bạn chưa có tài khoản? Đăng ký
+                Quay lại trang Đăng nhập
             </Text>
           </Pressable>
         </View>
@@ -127,6 +126,6 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default ForgotPasswordScreen;
 
 const styles = StyleSheet.create({});

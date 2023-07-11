@@ -1,8 +1,20 @@
-import {TextInput,KeyboardAvoidingView, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import React, { useState } from 'react'
-import { FontAwesome5, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  TextInput,
+  KeyboardAvoidingView,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import React, { useState } from "react";
+import {
+  FontAwesome5,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { firebase } from "../../config";
+import { firebase } from "../../../config";
 
 const RegisterScreen = () => {
   const navigation = useNavigation();
@@ -10,39 +22,43 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
 
-
-  const handleRegister= async (email, password,fullName) => {
-    await firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(()=>{
-      firebase.auth().currentUser.sendEmailVerification({
-        handleCodeInApp: true,
-        url: "https://scan-27d1f.firebaseapp.com",
-      })
+  const handleRegister = async (email, password, fullName) => {
+    await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        alert("Đăng ký thành công, vui lòng xác nhận email để đăng nhập")
-      }
-      )
+        firebase
+          .auth()
+          .currentUser.sendEmailVerification({
+            handleCodeInApp: true,
+            url: "https://scan-27d1f.firebaseapp.com",
+          })
+          .then(() => {
+            alert("Đăng ký thành công, vui lòng xác nhận email để đăng nhập");
+          })
+          .catch((error) => {
+            alert(error);
+          })
+          .then(() => {
+            firebase
+              .firestore()
+              .collection("users")
+              .doc(firebase.auth().currentUser.uid)
+              .set({
+                email: email,
+                fullName: fullName,
+                avatar: null,
+                uid: firebase.auth().currentUser.uid,
+              });
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      })
       .catch((error) => {
         alert(error);
-      }
-      )
-      .then(()=>{
-        firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).set({
-          email:email,
-          fullName:fullName,
-          uid:firebase.auth().currentUser.uid,
-        })
-      }).catch((error) => {
-        alert(error);
-      })
-    })
-    .catch((error) => {
-      alert(error);
-    }
-    )
-
+      });
   };
-
 
   return (
     <SafeAreaView
@@ -69,8 +85,8 @@ const RegisterScreen = () => {
           </Text>
         </View>
         <View style={{ marginTop: 50 }}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <FontAwesome5 name="user" size={24} color="black" />
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <FontAwesome5 name="user" size={24} color="black" />
             <TextInput
               placeholder="Họ và tên"
               autoCapitalize="none"
@@ -126,7 +142,7 @@ const RegisterScreen = () => {
             />
           </View>
           <Pressable
-            onPress={() => handleRegister(email, password,fullName)}
+            onPress={() => handleRegister(email, password, fullName)}
             style={{
               width: 200,
               backgroundColor: "#318CE7",
@@ -159,7 +175,7 @@ const RegisterScreen = () => {
                 fontSize: 17,
                 textAlign: "center",
                 fontWeight: "600",
-                color:"gray"
+                color: "gray",
               }}
             >
               Bạn đã có tài khoản? Đăng nhập
@@ -169,8 +185,8 @@ const RegisterScreen = () => {
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
-}
+};
 
-export default RegisterScreen
+export default RegisterScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

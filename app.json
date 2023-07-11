@@ -1,5 +1,6 @@
 {
   "expo": {
+
     "name": "Scan",
     "slug": "Scan",
     "plugins": ["@react-native-google-signin/google-signin"],
