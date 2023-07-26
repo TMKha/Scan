@@ -12,8 +12,6 @@ const SaveScreen = () => {
   const navigation = useNavigation();
 
 
-
-
   const uploadImage = async () => {
     const response = await fetch(imageData.uri);
     const childPath = `post/${firebase.auth().currentUser.uid}/${Math.random().toString(36)}`;
@@ -39,6 +37,9 @@ const SaveScreen = () => {
     task.on("state_changed", taskProgress, taskError, taskCompleted);
   };
   const savePossData = (downloadURL) => {
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getFullYear()}${String(currentDate.getMonth() + 1).padStart(2, '0')}${String(currentDate.getDate()).padStart(2, '0')}${String(currentDate.getHours()).padStart(2, '0')}${String(currentDate.getMinutes()).padStart(2, '0')}${String(currentDate.getSeconds()).padStart(2, '0')}`;
+
     firebase
       .firestore()
       .collection("posts")
@@ -46,17 +47,16 @@ const SaveScreen = () => {
       .collection("userPosts")
       .add({
         downloadURL,
-        caption,
+        caption: `Scan-${formattedDate}`,
         creation: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then((function () {
-        navigation.popToTop()
+        navigation.navigate("ScanScreen");
       }))
+      .catch((error) => {
+        console.log("Error saving data:", error);
+      });
   };
-
-
-
-
   return (
     <View style={{ flex: 1 }}>
       <Image
@@ -66,7 +66,6 @@ const SaveScreen = () => {
         }}
         source={{ uri: imageData.uri }}
       />
-      <TextInput placeholder="đặt tên" onChangeText={(caption)=> setCaption(caption)}  />
       <Button title="Lưu" onPress={() => uploadImage()} />
     </View>
   );

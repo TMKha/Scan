@@ -7,20 +7,22 @@ import Gallery from "../../components/Gallery";
 
 export default function Home() {
   return (
-    <SafeAreaView style={{ flex: 1, marginHorizontal: 20 }}>
+    <SafeAreaView style={{ flex: 1, marginHorizontal: 20,backgroundColor:"#EDF1F8" }}>
       {/* Search Bar */}
       <TextInput
         placeholder="Search"
         clearButtonMode="always"
         style={styles.searchBox}
       />
-      {/* Tools */}
+      {/* Tools */} 
       <Tools />
       {/* View Gallery */}
       <Gallery/>
     </SafeAreaView>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   searchBox: {

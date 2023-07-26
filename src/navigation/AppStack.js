@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import ScanDocumentScreen from "../screen/upcomming";
-import ImagePreviewScreen from "../screen/ImagePreviewScreen ";
 import Home from "../screen/HomeScreen/HomeScreen";
 import { firebase } from "../../config";
 import LoginScreen from "../screen/AuthScreen/LoginScreen";
@@ -16,6 +15,8 @@ import EditProfileScreen from "../screen/UserScreen/EditProfileScreen";
 import ForgotPasswordScreen from "../screen/AuthScreen/ForgotPasswordScreen";
 import SaveScreen from "../screen/ScanScreen/SaveScreen";
 import ScanScreen from "../screen/ScanScreen/ScanScreen";
+import imageToPDF from "../screen/PDF/imageToPDF";
+import ImportFile from "../screen/FileScreen/ImportFile";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -55,7 +56,7 @@ const BottomTabs = () => {
     >
       <Tab.Screen
         name={"Trang chủ"}
-        component={Home}
+        component={HomeStack}
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
@@ -68,8 +69,8 @@ const BottomTabs = () => {
         }}
       />
       <Tab.Screen
-        name={"Tập tin"}
-        component={ScanDocumentStack}
+        name={"ImportFile"}
+        component={ImportFile}
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
@@ -124,6 +125,21 @@ const BottomTabs = () => {
         }}
       />
     </Tab.Navigator>
+  );
+};
+// home stack
+const HomeStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="HomeScreen"
+        component={Home}
+      />
+      <Stack.Screen name="ImageToPDF" component={imageToPDF} />
+    </Stack.Navigator>
   );
 };
 
@@ -208,18 +224,33 @@ const AuthStack = () => {
 const ScanStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="ScanDocument" component={ScanScreen} />
-      <Stack.Screen name="SaveScreen" component={SaveScreen} />
+      <Stack.Screen name="ScanScreen" 
+         options={{
+          headerShown: false,
+          headerStyle: {
+            height: 150,
+            borderBottomLeftRadius: 50,
+            borderBottomRightRadius: 50,
+            shadowColor: "#000",
+            elevation: 50,
+          },
+        }}
+      component={ScanScreen} />
+      <Stack.Screen name="SaveScreen"
+         options={{
+          headerShown: false,
+          headerStyle: {
+            height: 150,
+            borderBottomLeftRadius: 50,
+            borderBottomRightRadius: 50,
+            shadowColor: "#000",
+            elevation: 50,
+          },
+        }}
+      component={SaveScreen} />
     </Stack.Navigator>
   );
 };
 
-const ScanDocumentStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="ScanDocument" component={ScanDocumentScreen} />
-      <Stack.Screen name="ImagePreview" component={ImagePreviewScreen} />
-    </Stack.Navigator>
-  );
-};
+
 export default MainScreen;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Image, View, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { ImageEditor } from "expo-image-editor";
@@ -10,6 +10,11 @@ const ScanScreen = () => {
   const [imageData, setImageData] = useState({});
   const [editorVisible, setEditorVisible] = useState(false);
   const navigate = useNavigation();
+  useEffect(() => {
+    setImageUri(null);
+  }, []);
+  console.log('imageData', imageData)
+  console.log('imageUri', imageUri)
 
   const selectPhoto = async () => {
     // Get the permission to access the camera roll
@@ -45,20 +50,12 @@ const ScanScreen = () => {
     // And set the image editor to be visible
     setEditorVisible(true);
   };
+ // Reset imageData to null whenever the component is mounted or focused
 
   return (
-    <View >
+    <View style={styles.container} >
       {imageUri ? (
-        <View>
-          <Image
-            style={{
-              height: "100%",
-              width: "100%",
-              display: "flex",
-              alignSelf: "center",
-            }}
-            source={{ uri: imageData.uri }}
-          />
+        <View >
           <ImageEditor
             visible={editorVisible}
             onCloseEditor={() => setEditorVisible(false)}
@@ -70,17 +67,16 @@ const ScanScreen = () => {
             }}
             onEditingComplete={(result) => {
               setImageData(result);
-              console.log(result);
-              navigate.navigate("SaveScreen", { imageData: result });
+              navigate.navigate("SaveScreen", { imageData: result }); // Navigate to SaveDocument
             }}
             mode="full"
           />
         </View>
       ) : (
-        <View>
-          <Button title="Chọn ảnh" onPress={() => selectPhoto()} />
-          <Button title="Chụp ảnh" onPress={() => scanPhoto()} />
-        </View>
+        <View style={styles.buttonContainer}>
+              <Button title="Chọn ảnh" style={styles.buttonScan} onPress={() => selectPhoto()} />
+              <Button title="Chụp ảnh" style={styles.buttonScan} onPress={() => scanPhoto()} />
+      </View>
       )}
     </View>
   );
@@ -92,9 +88,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
-    height: "100%",
   },
+  buttonContainer: {
+    height:100,
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  buttonScan: {
+    padding:20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+ 
 });
 
 export default ScanScreen ;
